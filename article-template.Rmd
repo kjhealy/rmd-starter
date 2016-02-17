@@ -1,0 +1,57 @@
+---
+title: "The Title of my Paper"
+author:
+- name: Kieran Healy
+  affiliation: Duke University
+  email: kjhealy@soc.duke.edu
+date: February 2016
+thanks: "This will appear as a starred (not numbered) footnote to the title."
+abstract: "This is the abstract of the paper."
+crossrefYaml: "./pandoc-crossref-settings.yaml"
+...
+
+
+```{r Cleanup, include=FALSE, cache=FALSE}
+
+read_chunk("setup/clean-up.r")
+
+```
+
+
+```{r Setup, include=FALSE, results="hide", warning=FALSE}
+opts_chunk$set(fig.path='figures/paper-',
+               cache.path='cache/report-',
+               dev=c("png","pdf"),
+               fig.width=8,
+               fig.height=5,
+               dpi=300,
+               fig.show='hold',
+               fig.lp="fig:",
+               cache=TRUE,
+               par=TRUE,
+               echo=FALSE,
+               results="hide",
+               message=FALSE,
+               warning=FALSE)
+
+knit_hooks$set(par=function(before, options, envir){
+    if (before && options$fig.show!='none') par(mar=c(4,4,.1,.1),cex.lab=.95,cex.axis=.9,mgp=c(2,.7,0),tcl=-.3)
+}, crop=hook_pdfcrop)
+
+opts_knit$set(kfigr.prefix=TRUE,
+              kfigr.link=FALSE)
+```
+
+
+```{r LoadData}
+read_chunk("setup/options-and-libraries.r")
+
+read_chunk("setup/setup.r")
+
+```
+
+
+## Introduction
+
+
+
