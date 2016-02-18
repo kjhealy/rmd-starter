@@ -35,14 +35,15 @@ MD=$(SRC:.Rmd=.md)
 PDFS=$(SRC:.Rmd=.pdf)
 HTML=$(SRC:.Rmd=.html)
 TEX=$(SRC:.Rmd=.tex)
+DOCX=$(SRC:.md=.docx)
 
-
-all:	$(MD) $(PDFS) $(HTML) $(TEX) 
+all:	$(MD) $(PDFS) $(HTML) $(TEX) $(DOCX)
 
 pdf:	clean $(PDFS)
 html:	clean $(HTML)
 tex:	clean $(TEX)
 md:	clean $(MD)
+docx:	clean $(DOCX)
 
 %.md: %.Rmd
 	R --slave -e "set.seed(100);knitr::knit('$<')"
@@ -57,7 +58,10 @@ md:	clean $(MD)
 %.pdf:	%.md
 	pandoc -r markdown+simple_tables+table_captions+yaml_metadata_block -w latex -s -S --latex-engine=pdflatex --template=$(PREFIX)/templates/latex.template --filter pandoc-crossref --filter pandoc-citeproc --csl=$(PREFIX)/csl/ajps.csl --bibliography=$(BIB) --filter pandoc-citeproc-preamble -o $@ $<
 
+%.docx:	%.md
+	pandoc -r markdown+simple_tables+table_captions+yaml_metadata_block -s -S --latex-engine=pdflatex --template=$(PREFIX)/templates/latex.template --filter pandoc-crossref --filter pandoc-citeproc --csl=$(PREFIX)/csl/$(CSL).csl --filter pandoc-citeproc-preamble --bibliography=$(BIB) -o $@ $<
+
 clean:
-	rm -f *.md *.html *.pdf *.tex
+	rm -f *.md *.html *.pdf *.tex *.docx
 
 .PHONY: clean
