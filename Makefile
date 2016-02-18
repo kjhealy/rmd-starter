@@ -1,5 +1,24 @@
 ### From Rmd to PDF or html via md
 
+## A Makefile in for your Rmarkdown-based paper project. 
+## Assuming you are using the rest of my templates and toolchain,
+## (see http://kieranhealy.org/resources) you can use it
+### to create .html, .tex, and .pdf output files (complete with
+### bibliography, if present) from your Rmarkdown file.
+## -    Install the `pandoc-citeproc` and `pandoc-citeproc-preamble`
+##      filters for `pandoc`.
+## -	Change the paths at the top of the file as needed.
+## -	Using `make` without arguments will generate html, tex, and pdf 
+## 	output files from all of the `.Rmd` files in the folder.
+##      The `.md` files are created from `.Rmd` sources via R and `knitr`.
+## -	You can specify an output format with `make tex`, `make pdf` or 
+## - 	`make html`. 
+## -	Doing `make clean` will remove all the .md .tex, .html, and .pdf files 
+## 	in your working directory. Make sure you do not have files in these
+##	formats that you want to keep!
+
+
+
 ## All Rmarkdown files in the working directory
 SRC = $(wildcard *.Rmd)
 
