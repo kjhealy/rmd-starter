@@ -46,7 +46,7 @@ md:	clean $(MD)
 docx:	clean $(DOCX)
 
 %.md: %.Rmd
-	R --slave -e "set.seed(100);knitr::knit('$<')"
+	R --no-echo -e "set.seed(100);knitr::knit('$<')"
 
 %.html:	%.md 
 	pandoc -r markdown+simple_tables+table_captions+yaml_metadata_block -w html -S --template=$(PREFIX)/templates/html.template --css=$(PREFIX)/marked/kultiad-serif.css --filter pandoc-crossref --filter pandoc-citeproc --csl=$(PREFIX)/csl/$(CSL).csl --bibliography=$(BIB) --filter pandoc-citeproc-preamble -o $@ $<
